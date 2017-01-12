@@ -49,10 +49,10 @@ var database = firebase.database();
 //   });
 // }
 function writeData(question, answer, senderId) {
-  var qaRef = firebase.database().ref('Question/'+senderId);
-  var newRef = qaRef.push();
+  var qaRef = database.ref('Question/'+senderId);
+  // var newRef = qaRef.push();
   console.log(newRef);
-  newRef.set({
+  qaRef.set({
     question: question,
     answer: answer,
   });
@@ -61,11 +61,17 @@ function writeData(question, answer, senderId) {
 
 //----------read from database---------------
 function getAnswer(question, answer) {
-  return firebase.database().ref('Q&A').once('value').then(function(snapshot) {
+  return database.ref('Question').once('value').then(function(snapshot) {
 	var answer = snapshot.val();
   });
 }
 //------------------------------------------
+//---check existed data---------------------
+function checkAnswer(question, answer) {
+
+}
+//------------------------------------------
+
 
 //------------------------------------------
 // console.log(randomNum(1, 2));
@@ -113,7 +119,12 @@ login({appState: JSON.parse(fs.readFileSync('login.json', 'utf8'))}, function ca
 		    	}
 		    	if (event.body.length() <= 1) {
 		    		api.sendMessage("viết chữ gì có nghĩa đi má !!! =_=", event.threadID);
-		    		writeData(event.body, "viết chữ gì có nghĩa đi má !!! =_=");
+		    		writeData(event.body, "viết chữ gì có nghĩa đi má !!! =_=", event.senderID);
+		    	}
+
+		    	if (typeof event.body !== 'undefined') {
+		    		api.sendMessage('answertest', event.threadID);
+					writeData(event.body, 'answertest', event.senderID);
 		    	}
 		    	// writeData(event.body, 'answertest');
 		    	console.log(event);
