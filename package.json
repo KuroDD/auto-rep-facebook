@@ -1,0 +1,15 @@
+{
+  "name": "autorep-bot",
+  "version": "1.0.0",
+  "description": "test bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "duongdt",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^3.6.2"
+  }
+}
